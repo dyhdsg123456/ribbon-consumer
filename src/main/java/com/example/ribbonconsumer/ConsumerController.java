@@ -14,10 +14,12 @@ import java.util.HashMap;
 public class ConsumerController {
     @Autowired
     private RestTemplate restTemplate;
-
+   @Autowired
+   private HelloService service;
     @RequestMapping(value = "/ribbon-consumer",method = RequestMethod.GET)
     public String helloConsumer(){
-        return restTemplate.getForEntity("http://HELLO-SERVICE/hello3",String.class).getBody();
+//        return restTemplate.getForEntity("http://HELLO-SERVICE/hello3",String.class).getBody();
+        return service.helloService();
     }
 
     @RequestMapping(value = "/getuser",method = RequestMethod.GET)
