@@ -15,13 +15,29 @@ public class HelloService {
     @Autowired
     RestTemplate restTemplate;
 
-    @HystrixCommand(fallbackMethod = "helloFallback")
+//    @HystrixCommand(fallbackMethod = "helloFallback")
+//    public String helloService(){
+//
+//        return restTemplate.getForEntity("http://HELLO-SERVICE/hello",String.class).getBody();
+//    }
+    @HystrixCommand(fallbackMethod = "fallback")
     public String helloService(){
 
-        return restTemplate.getForEntity("http://HELLO-SERVICE/hello",String.class).getBody();
+       throw new RuntimeException("failed");
     }
 
-    @HystrixCommand(fallbackMethod = "helloFallback2")
+    public String fallback(Throwable e){
+    if("failed".equals(e.getMessage())){
+        System.out.println("ansdfadfdfdf");
+
+    }
+    assert "failed".equals(e.getMessage());
+    return "fail";
+    }
+
+
+    @HystrixCommand(fallbackMethod = "helloFallback2" ,
+            ignoreExceptions = ArithmeticException.class)//忽略除0错误
     public String helloFallback(){
         int i=1/0;
         return "error";
