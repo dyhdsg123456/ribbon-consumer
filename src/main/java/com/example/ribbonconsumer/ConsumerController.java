@@ -1,5 +1,6 @@
 package com.example.ribbonconsumer;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,4 +32,6 @@ public class ConsumerController {
         User user = restTemplate.getForObject("http://HELLO-SERVICE/hello4?name={name}", User.class, param);
         return user;
     }
+
+
 }
