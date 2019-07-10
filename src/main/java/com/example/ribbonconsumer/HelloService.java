@@ -1,6 +1,7 @@
 package com.example.ribbonconsumer;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.cache.annotation.CacheResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -47,4 +48,9 @@ public class HelloService {
         return "error222";
     }
 
+    @HystrixCommand
+    @CacheResult
+    public User getUserById(Long id){
+        return restTemplate.getForObject("http://HELLO-SERVICE/users/{1}",User.class,id);
+    }
 }

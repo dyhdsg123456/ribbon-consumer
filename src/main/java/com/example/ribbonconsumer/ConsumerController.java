@@ -2,10 +2,7 @@ package com.example.ribbonconsumer;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.HashMap;
@@ -33,5 +30,8 @@ public class ConsumerController {
         return user;
     }
 
-
+    @RequestMapping(value = "/users/{id}",method = RequestMethod.GET)
+    public User users(@PathVariable Long id){
+        return service.getUserById(id);
+    }
 }
